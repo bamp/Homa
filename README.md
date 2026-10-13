@@ -13,7 +13,7 @@ O Homa reúne dicas e avaliações de quem mora na cidade, organizadas pelo mome
 | Staging | https://homa-staging-alana.onrender.com |
 | Produção | https://homa-prod-alana.onrender.com |
 
-**Integrantes:** [NOME COMPLETO – RM]
+**Integrante:** Alana de Menezes Pereira – RM 562562
 
 > **Nota ao professor**
 >
