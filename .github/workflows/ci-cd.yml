@@ -86,8 +86,7 @@ jobs:
   deploy-staging:
     name: 3. Deploy em staging
     needs: docker
-    # Só roda quando o environment staging tem a URL configurada (variável STAGING_URL)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && vars.STAGING_URL != ''
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -104,8 +103,7 @@ jobs:
   deploy-production:
     name: 4. Deploy em produção
     needs: docker
-    # Só roda quando o environment production tem a URL configurada (variável PRODUCTION_URL)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PRODUCTION_URL != ''
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     # O environment "production" exige aprovação manual (Settings > Environments > Required reviewers)
     environment:

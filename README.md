@@ -98,8 +98,6 @@ O projeto foi planejado para o Azure App Service, com dois Web Apps no plano gra
 
 Para não deixar o deploy de fora, os dois ambientes foram publicados no Render, que tem plano gratuito e roda a mesma imagem do Docker Hub. O resto do pipeline não mudou: build, testes, imagem e a conferência do commit em `/api/info` são os mesmos. A troca de nuvem ficou restrita ao passo que dispara o deploy.
 
-Os jobs de deploy só rodam quando o environment tem a URL configurada (`STAGING_URL` ou `PRODUCTION_URL`); sem ela, aparecem como pulados (*skipped*) em vez de falhar.
-
 **Entrega contínua:** tudo é automático até a produção, e a última etapa depende de uma aprovação manual. Se o deploy em produção fosse automático a cada alteração aprovada nos testes, o pipeline seria de implantação contínua.
 
 ### Segredos e variáveis (GitHub → Settings)
