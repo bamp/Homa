@@ -17,7 +17,7 @@ O Homa reúne dicas e avaliações de quem mora na cidade, organizadas pelo mome
 
 > **Nota ao professor**
 >
-> No meio da realização deste trabalho, meu computador pifou, e para finalizar precisei usar o tablet e o celular. Por isso não consegui validar a conta Azure de estudante: o cadastro travou na verificação e bloqueou por excesso de tentativas, e na conta gratuita comum também deu problema, porque eu já tinha uma conta antiga e não consegui acessá-la. Para não deixar o deploy de fora, optei por publicar os ambientes de staging e produção no Render. O pipeline, a imagem Docker e a aprovação manual da produção são os mesmos que eu tinha planejado para a Azure; só mudou o lugar onde a aplicação roda.
+> No meio da realização deste trabalho, meu notebook pifou. Acabei não conseguindo validar a conta Azure de estudante, porque várias coisas que eu precisava estavam salvas no notebook. Então fiz o que dava para finalizar o deploy com o GitHub e com o Render, entre o tablet e o celular. O pipeline, a imagem Docker e a aprovação manual da produção são os mesmos que eu tinha planejado para a Azure; só mudou o lugar onde a aplicação roda.
 
 
 ---
@@ -99,7 +99,7 @@ Os jobs dependem uns dos outros (`needs`): sem testes aprovados não há imagem,
 
 ### Por que Render e não Azure
 
-O projeto foi planejado para o Azure App Service, com dois Web Apps no plano gratuito F1. Na reta final, a conta Azure for Students com o e-mail da faculdade não liberou: o cadastro travou na verificação e depois bloqueou por excesso de tentativas, e a conta Azure comum pedia cartão de crédito e dados de empresa.
+O projeto foi planejado para o Azure App Service, com dois Web Apps no plano gratuito F1. Na reta final meu notebook pifou e não consegui validar a conta Azure de estudante, porque o que eu precisava para isso estava salvo nele.
 
 Para não deixar o deploy de fora, os dois ambientes foram publicados no Render, que tem plano gratuito e roda a mesma imagem do Docker Hub. O resto do pipeline não mudou: build, testes, imagem e a conferência do commit em `/api/info` são os mesmos. A troca de nuvem ficou restrita ao passo que dispara o deploy.
 
