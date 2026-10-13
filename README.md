@@ -10,10 +10,15 @@ O Homa reúne dicas e avaliações de quem mora na cidade, organizadas pelo mome
 
 | Ambiente | URL |
 |---|---|
-| Staging | `[URL STAGING]` |
-| Produção | `[URL PRODUÇÃO]` |
+| Staging | https://homa-staging-alana.onrender.com |
+| Produção | https://homa-prod-alana.onrender.com |
 
 **Integrantes:** [NOME COMPLETO – RM]
+
+> **Nota ao professor**
+>
+> No meio da realização deste trabalho, meu computador pifou, e para finalizar precisei usar o tablet e o celular. Por isso não consegui validar a conta Azure de estudante: o cadastro travou na verificação e bloqueou por excesso de tentativas, e na conta gratuita comum também deu problema, porque eu já tinha uma conta antiga e não consegui acessá-la. Para não deixar o deploy de fora, optei por publicar os ambientes de staging e produção no Render. O pipeline, a imagem Docker e a aprovação manual da produção são os mesmos que eu tinha planejado para a Azure; só mudou o lugar onde a aplicação roda.
+
 
 ---
 
