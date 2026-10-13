@@ -92,6 +92,14 @@ Todo pull request roda build e testes antes do merge: se um teste falha, o merge
 
 Os jobs dependem uns dos outros (`needs`): sem testes aprovados não há imagem, e sem imagem não há deploy.
 
+### Situação do deploy na Azure
+
+Na data da entrega, os jobs 1 e 2 rodam de ponta a ponta: o código compila, os testes passam, a imagem é montada, testada num container e publicada no Docker Hub com as tags do commit e da branch.
+
+Os jobs 3 e 4 estão prontos no workflow, mas ainda não rodaram. A conta Azure for Students com o e-mail da faculdade não liberou: o cadastro travou na verificação e depois bloqueou por excesso de tentativas. A alternativa, uma conta Azure comum, pede cartão de crédito e dados que eu não tinha como informar.
+
+Para o pipeline não ficar vermelho por falta de configuração, os jobs de deploy só rodam quando o environment tem o nome do Web App (`STAGING_APP_NAME` ou `PRODUCTION_APP_NAME`). Sem essas variáveis, o GitHub mostra os jobs como pulados (*skipped*). Quando a conta liberar, basta criar os Web Apps, preencher os environments como descrito abaixo e rodar o workflow de novo, sem mexer no código.
+
 **Entrega contínua:** tudo é automático até a produção, e a última etapa depende de uma aprovação manual. Se o deploy em produção fosse automático a cada alteração aprovada nos testes, o pipeline seria de implantação contínua.
 
 ### Segredos e variáveis (GitHub → Settings)
@@ -194,13 +202,11 @@ Os dois serviços usam a **rede** `homa-net` (bridge) e o **volume** nomeado `ho
 
 > Prints em `docs/prints/`.
 
-1. Pipeline completo no GitHub Actions: `docs/prints/01-pipeline.png`
-2. Testes aprovados: `docs/prints/02-testes.png`
-3. Imagem publicada no Docker Hub: `docs/prints/03-imagem.png`
-4. Aprovação do deploy de produção: `docs/prints/04-aprovacao.png`
-5. Staging funcionando: `docs/prints/05-staging.png`
-6. Produção funcionando: `docs/prints/06-producao.png`
-7. Execução local com `docker compose ps`: `docs/prints/07-compose.png`
+1. Pipeline no GitHub Actions, com build, testes e imagem aprovados: `docs/prints/01-pipeline.png`
+2. Resumo dos testes aprovados: `docs/prints/02-testes.png`
+3. Imagem publicada no Docker Hub, com as tags: `docs/prints/03-imagem.png`
+
+Os prints de staging, produção e aprovação manual dependem da conta Azure (ver *Situação do deploy na Azure*). O print do `docker compose` rodando localmente não foi feito porque eu estava sem computador na reta final; o Compose foi testado durante o desenvolvimento.
 
 ---
 
