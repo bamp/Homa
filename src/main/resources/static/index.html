@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>homa. — dicas de quem mora na cidade</title>
+<style>
+:root{--ink:#243b35;--muted:#687b73;--cream:#f7f5ef;--paper:#fffefa;--sage:#dce8dd;--green:#315f50;--line:#e1e4db;--orange:#e7ac82;--soft:#eff2e9}*{box-sizing:border-box}body{margin:0;font:16px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:9}.head{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:10px}.logo{font-family:Georgia,serif;font-size:32px;font-weight:bold;letter-spacing:-2px;line-height:1}.tag{font-size:11px;color:var(--muted)}.env{display:inline-block;margin-left:8px;font:700 10px/1 system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;border-radius:20px;vertical-align:middle;background:var(--soft);color:var(--muted)}.env.staging{background:#fff0dc;color:#9a5a14}.env.producao{background:var(--green);color:#fff}.topnav{display:flex;gap:6px;flex-wrap:wrap}.topnav button,.chip{border:1px solid var(--line);background:transparent;border-radius:40px;padding:8px 12px;color:var(--ink)}.topnav button.active{background:var(--green);color:white;border-color:var(--green)}main{max-width:1050px;margin:0 auto;padding:24px 20px 95px}section.view{display:none}section.view.active{display:block}.eyebrow{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);font-weight:700}h1,h2,h3{line-height:1.13}h1{font:normal clamp(32px,5.4vw,56px)/1.06 Georgia,serif;letter-spacing:-1.5px;margin:12px 0}h2{font:normal 33px/1.12 Georgia,serif;margin:10px 0 15px}h3{margin:0 0 8px;font-size:18px}p{margin:6px 0 16px}.lead{color:var(--muted);max-width:640px;font-size:18px}.hero{background:var(--sage);border-radius:26px;padding:clamp(22px,5vw,50px);position:relative;overflow:hidden}.hero:after{content:'⌂';font-size:220px;color:#c2d5c5;position:absolute;right:-20px;bottom:-95px;transform:rotate(-10deg);pointer-events:none}.hero>*{position:relative;z-index:1}.btn{background:var(--green);border:1px solid var(--green);color:white;padding:12px 18px;border-radius:12px;font-weight:700}.btn.alt{background:var(--paper);color:var(--green)}.flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.grid.three{grid-template-columns:repeat(3,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 2px 4px #19382a06}.selectcard{cursor:pointer;text-align:left;min-height:168px;display:block;width:100%;color:inherit}.selectcard:hover,.selectcard:focus{border-color:var(--green);box-shadow:0 0 0 2px #315f5022}.symbol{font-size:25px;margin-bottom:14px}.muted,small{color:var(--muted)}.pill{display:inline-block;background:var(--soft);color:var(--green);font-size:12px;border-radius:30px;padding:5px 9px;font-weight:700;margin-right:4px}.pill.free{background:#fff0dc;color:#9a5a14}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0;align-items:end}.field{display:grid;gap:6px;margin-bottom:14px;flex:1;min-width:175px}.check{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;margin-bottom:14px;min-height:45px}.check input{width:auto;min-height:0}label{font-size:13px;font-weight:700}input,select,textarea{background:white;border:1px solid #ccd5cc;border-radius:10px;padding:12px;color:var(--ink);width:100%;min-height:45px}textarea{min-height:100px;resize:vertical}.tips{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.tip .meta{color:var(--muted);font-size:13px;margin-bottom:10px}.tip .title{font-size:20px;font-weight:700;margin:8px 0 5px}.tip .desc{color:#4f605a}.tip .foot{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid var(--line);padding-top:12px;margin-top:14px;flex-wrap:wrap}.link{color:var(--green);font-weight:700}.scoreline{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}.scores{display:flex;gap:5px}.scores button{width:36px;height:36px;border-radius:9px;border:1px solid #cbd5cb;background:white;color:var(--green)}.scores button.on{background:var(--green);color:white}.note{border-left:4px solid var(--orange);padding:12px 16px;background:#fff4e9;border-radius:0 10px 10px 0;margin:18px 0}.stat{background:var(--soft);border-radius:14px;padding:16px}.stat b{display:block;font-size:24px}.quote{font-style:italic;color:#4f605a;border-left:3px solid var(--sage);padding-left:12px;margin:8px 0}.bottom{position:fixed;bottom:0;left:0;right:0;background:#fffefaf5;border-top:1px solid var(--line);display:none;justify-content:space-around;padding:7px 6px calc(7px + env(safe-area-inset-bottom));z-index:10}.bottom button{border:0;background:none;padding:5px 7px;font-size:11px;color:var(--ink)}.bottom button.active{font-weight:800;color:var(--green)}.boticon{display:block;font-size:20px}.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:#213b32;color:white;padding:10px 18px;border-radius:10px;z-index:20;box-shadow:0 5px 20px #0003;display:none;max-width:90%}.brandfoot{margin:30px 0 10px;text-align:center;color:var(--muted);font-size:12px}.empty{padding:30px;background:var(--paper);border-radius:16px;text-align:center;color:var(--muted);grid-column:1/-1}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.head{padding:10px 16px}.topnav{display:none}.bottom{display:flex}main{padding:17px 14px 95px}.grid,.grid.two,.grid.three,.tips{grid-template-columns:1fr}.hero:after{font-size:150px;bottom:-70px}.scoreline{align-items:start;flex-direction:column}.card{padding:17px}.selectcard{min-height:120px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div><div class="logo">homa.<span id="env" class="env" hidden></span></div><div class="tag">a cidade vivida por quem vive nela</div></div><nav class="topnav"><button data-page="inicio" class="active">Início</button><button data-page="descobrir">Descobrir</button><button data-page="avaliar">Avaliar</button><button data-page="compartilhar">Contar uma dica</button><button data-page="sobre">Sobre</button></nav></div></header>
+<main>
+
+<section id="inicio" class="view active">
+  <div class="hero">
+    <div class="eyebrow">Dicas e avaliações de moradores</div>
+    <h1>Qual é o seu momento agora, e o que a sua cidade tem para isso?</h1>
+    <p class="lead">Onde comer bem por um preço justo, o que fazer de graça, como é morar em cada bairro. Contado por quem vive lá.</p>
+    <div class="flex"><button class="btn" onclick="document.getElementById('momentos').scrollIntoView({behavior:'smooth'})">Escolher meu momento ↓</button><button class="btn alt" onclick="show('descobrir')">Ver dicas da cidade</button></div>
+  </div>
+  <div id="momentos" style="margin-top:28px">
+    <h2>O que você procura agora?</h2>
+    <div class="grid" id="momentCards"></div>
+    <p class="muted" style="margin-top:14px">Dá para trocar de momento quando quiser. A mesma pessoa passa por vários.</p>
+  </div>
+</section>
+
+<section id="descobrir" class="view">
+  <div class="eyebrow">Descobrir</div>
+  <h2 id="descTitle">O que a cidade tem para você</h2>
+  <p class="lead" id="descLead">Dicas de quem mora na cidade. As marcadas como exemplo foram criadas para demonstrar o Homa.</p>
+  <div class="controls">
+    <div class="field"><label for="city">Cidade</label><input id="city" list="cidades" value="Passo Fundo"></div>
+    <div class="field"><label for="category">Interesse</label><select id="category"><option value="">Todos</option></select></div>
+    <div class="field"><label for="bairro">Bairro</label><input id="bairro" placeholder="Todos os bairros"></div>
+    <label class="check"><input type="checkbox" id="soGratis"> Só gratuitas</label>
+  </div>
+  <div id="cityPanel"></div>
+  <p id="context" class="muted"></p>
+  <div id="tiplist" class="tips"></div>
+  <div style="margin-top:22px"><button class="btn" onclick="show('compartilhar')">Contar uma dica →</button></div>
+</section>
+
+<section id="avaliar" class="view">
+  <div class="eyebrow">A cidade vivida</div>
+  <h2>Como é morar aqui, para você?</h2>
+  <p class="lead">Cada pessoa pesa a cidade de um jeito. Avalie o que você vive no dia a dia: ajuda quem está chegando a se preparar.</p>
+  <div class="card">
+    <div class="field"><label for="rateCity">Cidade</label><input id="rateCity" list="cidades" value="Passo Fundo"></div>
+    <div id="dimensions"></div>
+    <div class="field" style="margin-top:20px"><label for="realidade">O que você gostaria de ter sabido antes de morar aqui?</label><textarea id="realidade" maxlength="280" placeholder="Ex.: o aluguel é mais caro do que eu esperava. (opcional)"></textarea></div>
+    <button class="btn" id="btnReview" onclick="saveReview()">Enviar avaliação</button>
+  </div>
+  <div id="reviewState" style="margin-top:18px"></div>
+</section>
+
+<section id="compartilhar" class="view">
+  <div class="eyebrow">Contar uma dica</div>
+  <h2>O que funciona na sua cidade?</h2>
+  <p class="lead">Pode ser o seu prato feito preferido, o café do bairro, uma praça boa para as crianças ou um programa de graça.</p>
+  <div class="card">
+    <div class="grid two"><div class="field"><label for="tipCity">Cidade</label><input id="tipCity" list="cidades" value="Passo Fundo"></div><div class="field"><label for="tipBairro">Bairro (opcional)</label><input id="tipBairro" maxlength="80" placeholder="Ex.: Centro"></div></div>
+    <div class="field"><label for="tipTitle">Qual é a dica?</label><input id="tipTitle" maxlength="70" placeholder="Ex.: O almoço caseiro que cabe no orçamento"></div>
+    <div class="grid two"><div class="field"><label for="tipKind">Categoria</label><select id="tipKind"></select></div><label class="check"><input type="checkbox" id="tipFree"> É gratuita</label></div>
+    <div class="field"><label for="tipDesc">Por que vale a pena?</label><textarea id="tipDesc" maxlength="280" placeholder="O que ajuda de verdade no dia a dia: preço, horário, se dá para ir a pé..."></textarea></div>
+    <div class="field"><label for="tipMaps">Link do Google Maps (opcional)</label><input id="tipMaps" maxlength="300" placeholder="https://maps.app.goo.gl/..." inputmode="url"></div>
+    <button class="btn" id="btnTip" onclick="saveTip()">Publicar dica</button>
+  </div>
+</section>
+
+<section id="sobre" class="view">
+  <div class="eyebrow">Sobre o Homa</div>
+  <h2>Três jeitos de ver a mesma cidade</h2>
+  <div class="grid three">
+    <div class="card"><div class="symbol">☁️</div><h3>Cidade imaginada</h3><p>O que a gente espera de um lugar antes de chegar ou antes de uma nova fase.</p></div>
+    <div class="card"><div class="symbol">🏙️</div><h3>Cidade vivida</h3><p>O que o dia a dia mostra: quanto custa, o que dá para fazer a pé, o que fecha cedo.</p></div>
+    <div class="card"><div class="symbol">🌱</div><h3>Cidade possível</h3><p>O que dá para aproveitar com a vida que se tem: o almoço barato, a praça, o programa gratuito.</p></div>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <h3>Onde entra o ESG</h3>
+    <p><strong>Ambiental:</strong> o que dá para resolver a pé, de bicicleta ou de ônibus; parques, praças e áreas verdes.</p>
+    <p><strong>Social:</strong> cultura, lazer, alimentação e serviços a preço acessível; convivência e acessibilidade.</p>
+    <p><strong>Governança:</strong> critérios de avaliação abertos e iguais para todos. Somadas, as avaliações mostram o que funciona e o que falta em cada cidade.</p>
+    <p class="muted">Referência: ODS 11, Cidades e Comunidades Sustentáveis. As avaliações são percepções de moradores, não indicadores oficiais.</p>
+  </div>
+  <p class="muted" id="buildInfo" style="font-size:13px"></p>
+</section>
+
+<p class="brandfoot">homa. · versão 0.1 · projeto acadêmico · 2026</p>
+</main>
+<datalist id="cidades"><option>Passo Fundo</option><option>Porto Alegre</option></datalist>
+<nav class="bottom"><button data-page="inicio" class="active"><span class="boticon">⌂</span>Início</button><button data-page="descobrir"><span class="boticon">⌕</span>Descobrir</button><button data-page="avaliar"><span class="boticon">☆</span>Avaliar</button><button data-page="compartilhar"><span class="boticon">＋</span>Dica</button><button data-page="sobre"><span class="boticon">ⓘ</span>Sobre</button></nav><div id="toast" class="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').style.display='none',3200)}
+async function api(path,opts){const r=await fetch(path,{headers:{'Content-Type':'application/json'},...opts});const body=r.status===204?null:await r.json().catch(()=>null);if(!r.ok){const e=new Error(body?.erro||'Erro '+r.status);e.campos=body?.campos;throw e}return body}
+
+const cats={COMIDA:'Comida',CULTURA:'Cultura e lazer',FAMILIA:'Família e crianças',ESPACOS:'Espaços públicos',SERVICOS:'Serviços do dia a dia'};
+const catOpts=Object.entries(cats).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
+$('category').insertAdjacentHTML('beforeend',catOpts);$('tipKind').innerHTML=catOpts;
+
+const moments={
+  chegando:{ico:'📦',title:'Estou chegando',desc:'Mudei por trabalho, estudo ou concurso e quero entender a cidade.',head:'Como é morar aqui',lead:'Comece pelo que os moradores dizem sobre a cidade. Depois, as dicas.',cat:'',free:false,panel:true},
+  rotina:{ico:'🌳',title:'Minha rotina mudou',desc:'Mudei de vida sem mudar de cidade: filhos, bairro novo, sem carro.',head:'A sua cidade, em outra fase',lead:'Lugares e programas para a rotina nova, a começar pelos de família.',cat:'FAMILIA',free:false},
+  redescobrir:{ico:'🧭',title:'Quero redescobrir',desc:'Sair do automático sem gastar muito.',head:'Sair do automático',lead:'Programas de graça ou baratos para conhecer outro lado da cidade.',cat:'',free:true},
+  dica:{ico:'💬',title:'Tenho uma dica',desc:'Contar o que funciona na minha cidade.'}
+};
+let moment=null;
+$('momentCards').innerHTML=Object.entries(moments).map(([id,m])=>`<button class="card selectcard" onclick="chooseMoment('${id}')"><div class="symbol">${m.ico}</div><h3>${m.title}</h3><span class="muted">${m.desc}</span></button>`).join('');
+
+function show(page){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===page));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo(0,0);if(page==='descobrir')renderTips();if(page==='avaliar')renderReviews()}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.page==='descobrir')setMoment(null);show(b.dataset.page)}));
+
+function setMoment(id){moment=id;const m=moments[id];$('descTitle').textContent=m?.head||'O que a cidade tem para você';$('descLead').textContent=m?.lead||'Dicas de quem mora na cidade. As marcadas como exemplo foram criadas para demonstrar o Homa.';if(m){$('category').value=m.cat;$('soGratis').checked=m.free}}
+function chooseMoment(id){if(id==='dica'){show('compartilhar');return}setMoment(id);show('descobrir')}
+
+let tipTimer;
+async function renderTips(){
+  const city=$('city').value.trim();if(!city){$('tiplist').innerHTML='<div class="empty">Escolha uma cidade.</div>';return}
+  const q=new URLSearchParams({cidade:city});if($('category').value)q.set('categoria',$('category').value);if($('bairro').value.trim())q.set('bairro',$('bairro').value.trim());if($('soGratis').checked)q.set('gratuita','true');
+  $('cityPanel').innerHTML=moments[moment]?.panel?await cityPanel(city):'';
+  try{
+    const list=await api('/api/dicas?'+q);
+    $('context').textContent=`${list.length} dica(s) em ${city}${moment?' · '+moments[moment].title:''}`;
+    $('tiplist').innerHTML=list.length?list.map(t=>`<article class="card tip"><span class="pill">${esc(cats[t.categoria]||'Dica')}</span>${t.gratuita?'<span class="pill free">Gratuita</span>':''}<div class="title">${esc(t.titulo)}</div><div class="meta">📍 ${esc(t.bairro||'Bairro não informado')} · ${t.exemplo?'Exemplo':'Dica de morador'}</div><div class="desc">${esc(t.descricao)}</div><div class="foot"><small>${new Date(t.criadoEm).toLocaleDateString('pt-BR')}</small>${t.mapsUrl?`<a class="link" target="_blank" rel="noopener noreferrer" href="${esc(t.mapsUrl)}">Abrir no Google Maps ↗</a>`:'<small>Sem link de mapa</small>'}</div></article>`).join(''):'<div class="empty">Ainda não há dicas com esse filtro. Que tal deixar a primeira?</div>';
+  }catch(e){$('tiplist').innerHTML='<div class="empty">Não foi possível carregar as dicas agora.</div>'}
+}
+['category','soGratis'].forEach(id=>$(id).addEventListener('change',renderTips));['city','bairro'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(tipTimer);tipTimer=setTimeout(renderTips,350)}));
+
+const dims=[['custoDeVida','Custo de vida'],['culturaLazer','Cultura e lazer'],['mobilidade','Mobilidade no dia a dia'],['espacosPublicos','Espaços públicos e áreas verdes'],['convivencia','Convivência e pertencimento']];
+const fmt=n=>n==null?'–':n.toFixed(1).replace('.',',');
+async function cityPanel(city){
+  try{const r=await api('/api/avaliacoes/resumo?cidade='+encodeURIComponent(city));
+    if(!r.totalAvaliacoes)return `<div class="note">Ninguém avaliou ${esc(city)} ainda. <button class="btn alt" style="padding:6px 10px;margin-left:6px" onclick="$('rateCity').value=$('city').value;show('avaliar')">Avaliar</button></div>`;
+    return `<div class="card" style="margin-bottom:18px"><h3>Como os moradores avaliam ${esc(r.cidade)}</h3><p class="muted">Média de ${r.totalAvaliacoes} avaliação(ões), de 1 a 5. É percepção de moradores, não indicador oficial.</p><div class="grid">${dims.map(([k,n])=>`<div class="stat"><small>${n}</small><b>${fmt(r[k])}</b></div>`).join('')}</div>${r.comentariosRecentes.length?'<p style="margin-top:14px"><strong>O que gostariam de ter sabido antes:</strong></p>'+r.comentariosRecentes.map(c=>`<p class="quote">“${esc(c)}”</p>`).join(''):''}</div>`;
+  }catch{return ''}
+}
+
+let scores={};
+$('dimensions').innerHTML=dims.map(([key,title])=>`<div class="scoreline"><div><strong>${title}</strong><div class="muted" style="font-size:12px">1 = ruim · 5 = muito bom</div></div><div class="scores" id="score_${key}">${[1,2,3,4,5].map(n=>`<button type="button" aria-label="${n} de 5" onclick="score('${key}',${n})">${n}</button>`).join('')}</div></div>`).join('');
+function score(k,n){scores[k]=n;[...$('score_'+k).children].forEach((b,i)=>b.classList.toggle('on',i<n))}
+async function saveReview(){
+  const city=$('rateCity').value.trim();if(!city)return toast('Informe a cidade.');
+  if(dims.some(([k])=>!scores[k]))return toast('Dê uma nota para cada item.');
+  $('btnReview').disabled=true;
+  try{await api('/api/avaliacoes',{method:'POST',body:JSON.stringify({cidade:city,...scores,comentario:$('realidade').value.trim()})});
+    scores={};dims.forEach(([k])=>[...$('score_'+k).children].forEach(b=>b.classList.remove('on')));$('realidade').value='';toast('Avaliação enviada. Obrigada!');renderReviews();
+  }catch(e){toast('Não foi possível enviar: '+e.message)}finally{$('btnReview').disabled=false}
+}
+async function renderReviews(){const city=$('rateCity').value.trim();$('reviewState').innerHTML=city?await cityPanel(city):''}
+$('rateCity').addEventListener('change',renderReviews);
+
+async function saveTip(){
+  const body={cidade:$('tipCity').value.trim(),bairro:$('tipBairro').value.trim(),titulo:$('tipTitle').value.trim(),descricao:$('tipDesc').value.trim(),categoria:$('tipKind').value,gratuita:$('tipFree').checked,mapsUrl:$('tipMaps').value.trim()};
+  if(!body.cidade)return toast('Informe a cidade.');
+  if(body.titulo.length<5||body.descricao.length<12)return toast('Escreva um título e uma descrição um pouco mais completos.');
+  $('btnTip').disabled=true;
+  try{await api('/api/dicas',{method:'POST',body:JSON.stringify(body)});
+    ['tipBairro','tipTitle','tipDesc','tipMaps'].forEach(id=>$(id).value='');$('tipFree').checked=false;
+    $('city').value=body.cidade;$('bairro').value='';setMoment(null);$('category').value='';$('soGratis').checked=false;show('descobrir');toast('Dica publicada!');
+  }catch(e){toast(e.campos?.mapsUrl?'Use um link https do Google Maps.':'Não foi possível publicar: '+e.message)}finally{$('btnTip').disabled=false}
+}
+
+api('/api/info').then(i=>{const names={staging:'staging',producao:'produção',local:'local'};const el=$('env');el.textContent=names[i.ambiente]||i.ambiente;el.className='env '+i.ambiente;el.hidden=false;$('buildInfo').textContent=`Versão ${i.versao} · ambiente: ${names[i.ambiente]||i.ambiente} · commit ${String(i.commit).slice(0,7)}`}).catch(()=>{});
+</script>
+</body></html>

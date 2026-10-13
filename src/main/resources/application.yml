@@ -1,0 +1,37 @@
+server:
+  # Porta configurável pela variável PORT; padrão 8080.
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: homa
+  datasource:
+    # Sem DB_URL a aplicação sobe com H2 em memória (útil para testes e para rodar rápido).
+    url: ${DB_URL:jdbc:h2:mem:homa;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:5}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  jackson:
+    default-property-inclusion: non_null
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+homa:
+  ambiente: ${APP_ENV:local}
+  # GIT_COMMIT é gravado na imagem Docker pelo pipeline.
+  commit: ${GIT_COMMIT:desconhecido}
+  versao: '@project.version@'
+  dados-exemplo: ${DADOS_EXEMPLO:true}
