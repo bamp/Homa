@@ -197,17 +197,37 @@ Os dois serviços usam a **rede** `homa-net` (bridge) e o **volume** nomeado `ho
 
 ## Prints do funcionamento
 
-> Prints em `docs/prints/`.
+> Prints em `docs/prints/`. Foram tirados no celular e no tablet, direto do GitHub, do Docker Hub e dos sites no Render.
 
-**Staging** (`https://homa-staging-alana.onrender.com`), com o rodapé mostrando ambiente e commit:
+**1. Build e testes automatizados** (job "1. Build e testes": `mvn verify` com 7 testes, 0 falhas):
+
+<img src="docs/prints/00-build-testes.png" width="320">
+
+**2. Pipeline na `develop`**: build, imagem e deploy em staging verdes. O deploy de produção aparece como pulado de propósito, porque só roda na `main`.
+
+<img src="docs/prints/02-pipeline-staging.png" width="320">
+
+**3. Pipeline na `main`**: build, imagem e deploy em produção verdes. Aqui é o staging que fica pulado, pelo mesmo motivo.
+
+<img src="docs/prints/01-pipeline-producao.png" width="320">
+
+**4. Aprovação manual da produção**: o GitHub pede a revisão antes de publicar, e o deploy só seguiu depois do "Deployment aprovado".
+
+<img src="docs/prints/04-aprovacao-pedido.png" width="320"> <img src="docs/prints/04-aprovacao-confirmacao.png" width="320">
+
+**5. Imagem publicada no Docker Hub** (`bampamp/homa`, com tag do commit e da branch):
+
+![Imagem no Docker Hub](docs/prints/03-imagem-dockerhub.png)
+
+**6. Staging no ar** (`https://homa-staging-alana.onrender.com`), com o rodapé mostrando ambiente e commit:
 
 ![Staging no Render](docs/prints/05-staging.png)
 
-**Produção** (`https://homa-prod-alana.onrender.com`):
+**7. Produção no ar** (`https://homa-prod-alana.onrender.com`):
 
 ![Produção no Render](docs/prints/06-producao.png)
 
-O print do `docker compose` rodando localmente não foi feito porque eu estava sem computador na reta final; o Compose foi testado durante o desenvolvimento.
+O print do `docker compose` rodando localmente não entrou porque eu estava sem computador na reta final.
 
 ---
 
@@ -228,10 +248,10 @@ O print do `docker compose` rodando localmente não foi feito porque eu estava s
 
 | Item | OK |
 |---|---|
-| Projeto compactado em .ZIP com estrutura organizada | ☐ |
-| Dockerfile funcional | ☐ |
-| docker-compose.yml ou arquivos Kubernetes | ☐ |
-| Pipeline com etapas de build, teste e deploy | ☐ |
-| README.md com instruções e prints | ☐ |
-| Documentação técnica com evidências (PDF ou PPT) | ☐ |
-| Deploy realizado nos ambientes staging e produção | ☐ |
+| Projeto compactado em .ZIP com estrutura organizada | ✅ |
+| Dockerfile funcional | ✅ |
+| docker-compose.yml ou arquivos Kubernetes | ✅ |
+| Pipeline com etapas de build, teste e deploy | ✅ |
+| README.md com instruções e prints | ✅ |
+| Documentação técnica com evidências (PDF ou PPT) | ✅ |
+| Deploy realizado nos ambientes staging e produção | ✅ |
