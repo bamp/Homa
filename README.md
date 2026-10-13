@@ -73,7 +73,7 @@ Categorias: `COMIDA`, `CULTURA`, `FAMILIA`, `ESPACOS`, `SERVICOS`.
 
 ## Pipeline CI/CD
 
-**Ferramenta:** GitHub Actions (`.github/workflows/ci-cd.yml`). **Registro de imagens:** Docker Hub. **Hospedagem:** Azure App Service (Linux, container), com um Web App para staging e outro para produção.
+**Ferramenta:** GitHub Actions (`.github/workflows/ci-cd.yml`). **Registro de imagens:** Docker Hub. **Hospedagem:** Render (Web Services a partir da imagem do Docker Hub), com um serviço para staging e outro para produção. O plano original era o Azure App Service; o motivo da troca está em *Por que Render e não Azure*.
 
 ### Fluxo de branches
 
@@ -87,18 +87,18 @@ Todo pull request roda build e testes antes do merge: se um teste falha, o merge
 |---|---|---|---|
 | 1 | Build e testes | sempre | Java 21 + `mvn verify`: compila e roda os testes automatizados (JUnit + MockMvc). Os relatórios e o `.jar` ficam guardados como artefato. |
 | 2 | Imagem Docker | sempre (`needs: build-test`) | Monta a imagem, sobe um container e confere `/actuator/health`. Em push, publica no Docker Hub com a tag do **SHA do commit** e o nome da branch. |
-| 3 | Deploy em staging | push na `develop` | `azure/webapps-deploy` publica a imagem do commit no Web App de staging. O script `aguardar-deploy.sh` espera `/api/info` responder com o mesmo commit. |
-| 4 | Deploy em produção | push na `main` | Espera **aprovação manual** (environment `production` com *required reviewer*). Depois de aprovado, publica no Web App de produção e confere da mesma forma. |
+| 3 | Deploy em staging | push na `develop` | Chama o *deploy hook* do Render com a imagem do commit (`imgURL`), e o serviço de staging passa a rodar essa imagem. O script `aguardar-deploy.sh` espera `/api/info` responder com o mesmo commit. |
+| 4 | Deploy em produção | push na `main` | Espera **aprovação manual** (environment `production` com *required reviewer*). Depois de aprovado, chama o deploy hook do serviço de produção e confere da mesma forma. |
 
 Os jobs dependem uns dos outros (`needs`): sem testes aprovados não há imagem, e sem imagem não há deploy.
 
-### Situação do deploy na Azure
+### Por que Render e não Azure
 
-Na data da entrega, os jobs 1 e 2 rodam de ponta a ponta: o código compila, os testes passam, a imagem é montada, testada num container e publicada no Docker Hub com as tags do commit e da branch.
+O projeto foi planejado para o Azure App Service, com dois Web Apps no plano gratuito F1. Na reta final, a conta Azure for Students com o e-mail da faculdade não liberou: o cadastro travou na verificação e depois bloqueou por excesso de tentativas, e a conta Azure comum pedia cartão de crédito e dados de empresa.
 
-Os jobs 3 e 4 estão prontos no workflow, mas ainda não rodaram. A conta Azure for Students com o e-mail da faculdade não liberou: o cadastro travou na verificação e depois bloqueou por excesso de tentativas. A alternativa, uma conta Azure comum, pede cartão de crédito e dados que eu não tinha como informar.
+Para não deixar o deploy de fora, os dois ambientes foram publicados no Render, que tem plano gratuito e roda a mesma imagem do Docker Hub. O resto do pipeline não mudou: build, testes, imagem e a conferência do commit em `/api/info` são os mesmos. A troca de nuvem ficou restrita ao passo que dispara o deploy.
 
-Para o pipeline não ficar vermelho por falta de configuração, os jobs de deploy só rodam quando o environment tem o nome do Web App (`STAGING_APP_NAME` ou `PRODUCTION_APP_NAME`). Sem essas variáveis, o GitHub mostra os jobs como pulados (*skipped*). Quando a conta liberar, basta criar os Web Apps, preencher os environments como descrito abaixo e rodar o workflow de novo, sem mexer no código.
+Os jobs de deploy só rodam quando o environment tem a URL configurada (`STAGING_URL` ou `PRODUCTION_URL`); sem ela, aparecem como pulados (*skipped*) em vez de falhar.
 
 **Entrega contínua:** tudo é automático até a produção, e a última etapa depende de uma aprovação manual. Se o deploy em produção fosse automático a cada alteração aprovada nos testes, o pipeline seria de implantação contínua.
 
@@ -110,37 +110,31 @@ Nenhuma credencial fica no código: tudo vai em GitHub Secrets ou em variáveis 
 |---|---|---|---|
 | `DOCKERHUB_USERNAME` | secret | repositório | usuário do Docker Hub |
 | `DOCKERHUB_TOKEN` | secret | repositório | token de acesso do Docker Hub |
-| `AZURE_PROFILE_STAGING` | secret | environment `staging` | publish profile do Web App de staging |
-| `AZURE_PROFILE_PRODUCTION` | secret | environment `production` | publish profile do Web App de produção |
-| `STAGING_APP_NAME`, `STAGING_URL` | variável | environment `staging` | nome e URL do Web App de staging |
-| `PRODUCTION_APP_NAME`, `PRODUCTION_URL` | variável | environment `production` | nome e URL do Web App de produção |
+| `RENDER_DEPLOY_HOOK_STAGING` | secret | environment `staging` | deploy hook do serviço de staging no Render |
+| `RENDER_DEPLOY_HOOK_PRODUCTION` | secret | environment `production` | deploy hook do serviço de produção no Render |
+| `STAGING_URL` | variável | environment `staging` | URL do serviço de staging |
+| `PRODUCTION_URL` | variável | environment `production` | URL do serviço de produção |
 
-### Configuração de cada Web App (Azure → Variáveis de ambiente)
+### Configuração de cada serviço no Render
 
-| Variável | Staging | Produção |
-|---|---|---|
-| `APP_ENV` | `staging` | `producao` |
-| `WEBSITES_PORT` | `8080` | `8080` |
-| `WEBSITES_ENABLE_APP_SERVICE_STORAGE` | `true` | `true` |
-| `DB_URL` | `jdbc:h2:file:/home/data/homa;FILE_LOCK=NO` | `jdbc:h2:file:/home/data/homa;FILE_LOCK=NO` |
-| `WEBSITES_CONTAINER_START_TIME_LIMIT` | `600` | `600` |
+Cada ambiente é um Web Service do tipo *Existing Image*, no plano Free, apontando para `docker.io/<usuario>/homa`. A única variável é `APP_ENV` (`staging` ou `producao`). A porta vem da variável `PORT` que o Render define, e a aplicação já lê essa variável.
 
 ### Decisões
 
-- **Plano F1 (gratuito):** suficiente para demonstração. A troca para B1 ou superior é só uma mudança de plano no portal, sem alterar o pipeline.
-- **Banco:** localmente, o Compose usa PostgreSQL. Na nuvem, cada ambiente usa H2 em arquivo no armazenamento persistente do próprio App Service (`/home`), o que mantém os dois ambientes isolados sem custo de banco gerenciado. A aplicação troca de banco só pela variável `DB_URL`, e um banco gerenciado (Azure Database for PostgreSQL) fica como próximo passo.
-- **Estratégia de deploy:** *recreate*, em que o Web App troca a imagem e reinicia. Há uma breve indisponibilidade, aceitável num plano gratuito sem slots.
+- **Plano gratuito do Render:** suficiente para demonstração. O serviço hiberna sem acesso, então a primeira abertura depois de um tempo parado demora cerca de um minuto.
+- **Banco:** localmente, o Compose usa PostgreSQL. Na nuvem, cada ambiente usa H2 em memória, o que mantém staging e produção isolados sem custo; os dados de exemplo são recriados a cada início. A aplicação troca de banco só pela variável `DB_URL`, e um PostgreSQL gerenciado fica como próximo passo.
+- **Estratégia de deploy:** o Render sobe a nova imagem e só troca o tráfego quando ela responde, e o pipeline confere em `/api/info` se o commit no ar é o que acabou de ser publicado.
 
 ### Rollback
 
 Toda imagem fica no Docker Hub com a tag do SHA do commit. Para voltar uma versão:
 1. Rodar de novo, em Actions, o workflow de um commit anterior que funcionava (*Re-run jobs*); ou
-2. No portal da Azure, em Deployment Center, apontar o Web App para a tag do SHA anterior.
+2. No painel do Render, em **Events**, usar *Rollback* para um deploy anterior.
 
 ### Monitoramento
 
 - Execução e logs de cada job: aba **Actions** do GitHub, com resumo dos testes e da imagem publicada.
-- Logs do container e do deploy: **Deployment Center** e **Log stream** de cada Web App na Azure.
+- Logs do container e do deploy: abas **Events** e **Logs** de cada serviço no Render.
 - Saúde da aplicação: `/actuator/health`. Versão publicada: `/api/info`.
 
 ### Documentação da API
@@ -206,7 +200,7 @@ Os dois serviços usam a **rede** `homa-net` (bridge) e o **volume** nomeado `ho
 2. Resumo dos testes aprovados: `docs/prints/02-testes.png`
 3. Imagem publicada no Docker Hub, com as tags: `docs/prints/03-imagem.png`
 
-Os prints de staging, produção e aprovação manual dependem da conta Azure (ver *Situação do deploy na Azure*). O print do `docker compose` rodando localmente não foi feito porque eu estava sem computador na reta final; o Compose foi testado durante o desenvolvimento.
+O print do `docker compose` rodando localmente não foi feito porque eu estava sem computador na reta final; o Compose foi testado durante o desenvolvimento.
 
 ---
 
@@ -218,7 +212,7 @@ Os prints de staging, produção e aprovação manual dependem da conta Azure (v
 - **JUnit 5** e **MockMvc** (testes automatizados)
 - **Docker** (multi-stage) e **Docker Compose**
 - **GitHub Actions** (CI/CD) e **Docker Hub** (registro de imagens)
-- **Azure App Service** (Linux, containers), plano F1, para staging e produção
+- **Render** (Web Services com imagem Docker), plano Free, para staging e produção
 - **HTML, CSS e JavaScript** puros na interface, servidos pela própria aplicação
 
 ---

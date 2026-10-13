@@ -86,28 +86,26 @@ jobs:
   deploy-staging:
     name: 3. Deploy em staging
     needs: docker
-    # Só roda quando o Web App de staging está configurado (variável STAGING_APP_NAME no environment)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && vars.STAGING_APP_NAME != ''
+    # Só roda quando o environment staging tem a URL configurada (variável STAGING_URL)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop' && vars.STAGING_URL != ''
     runs-on: ubuntu-latest
     environment:
       name: staging
       url: ${{ vars.STAGING_URL }}
     steps:
       - uses: actions/checkout@v4
-      - name: Publica a imagem no Azure Web App de staging
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ vars.STAGING_APP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PROFILE_STAGING }}
-          images: index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/homa:${{ github.sha }}
+      - name: Publica a imagem do commit no Render (staging)
+        run: |
+          IMG=$(python3 -c 'import sys,urllib.parse;print(urllib.parse.quote(sys.argv[1],safe=""))' "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/homa:${{ github.sha }}")
+          curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_STAGING }}&imgURL=$IMG"
       - name: Confere se a nova versão está no ar
         run: bash scripts/aguardar-deploy.sh "${{ vars.STAGING_URL }}" "${{ github.sha }}"
 
   deploy-production:
     name: 4. Deploy em produção
     needs: docker
-    # Só roda quando o Web App de produção está configurado (variável PRODUCTION_APP_NAME no environment)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PRODUCTION_APP_NAME != ''
+    # Só roda quando o environment production tem a URL configurada (variável PRODUCTION_URL)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PRODUCTION_URL != ''
     runs-on: ubuntu-latest
     # O environment "production" exige aprovação manual (Settings > Environments > Required reviewers)
     environment:
@@ -115,11 +113,9 @@ jobs:
       url: ${{ vars.PRODUCTION_URL }}
     steps:
       - uses: actions/checkout@v4
-      - name: Publica a imagem no Azure Web App de produção
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ vars.PRODUCTION_APP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PROFILE_PRODUCTION }}
-          images: index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/homa:${{ github.sha }}
+      - name: Publica a imagem do commit no Render (produção)
+        run: |
+          IMG=$(python3 -c 'import sys,urllib.parse;print(urllib.parse.quote(sys.argv[1],safe=""))' "docker.io/${{ secrets.DOCKERHUB_USERNAME }}/homa:${{ github.sha }}")
+          curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK_PRODUCTION }}&imgURL=$IMG"
       - name: Confere se a nova versão está no ar
         run: bash scripts/aguardar-deploy.sh "${{ vars.PRODUCTION_URL }}" "${{ github.sha }}"
