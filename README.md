@@ -196,9 +196,13 @@ Os dois serviços usam a **rede** `homa-net` (bridge) e o **volume** nomeado `ho
 
 > Prints em `docs/prints/`.
 
-1. Pipeline no GitHub Actions, com build, testes e imagem aprovados: `docs/prints/01-pipeline.png`
-2. Resumo dos testes aprovados: `docs/prints/02-testes.png`
-3. Imagem publicada no Docker Hub, com as tags: `docs/prints/03-imagem.png`
+**Staging** (`https://homa-staging-alana.onrender.com`), com o rodapé mostrando ambiente e commit:
+
+![Staging no Render](docs/prints/05-staging.png)
+
+**Produção** (`https://homa-prod-alana.onrender.com`):
+
+![Produção no Render](docs/prints/06-producao.png)
 
 O print do `docker compose` rodando localmente não foi feito porque eu estava sem computador na reta final; o Compose foi testado durante o desenvolvimento.
 
