@@ -28,8 +28,8 @@ Pré-requisitos: Docker e Docker Compose.
 
 ```bash
 # 1. Clonar o repositório
-git clone [URL DO REPOSITÓRIO]
-cd homa
+git clone https://github.com/bamp/Homa.git
+cd Homa
 
 # 2. Criar o arquivo de variáveis a partir do exemplo
 cp .env.example .env
@@ -131,8 +131,8 @@ Cada ambiente é um Web Service do tipo *Existing Image*, no plano Free, apontan
 ### Rollback
 
 Toda imagem fica no Docker Hub com a tag do SHA do commit. Para voltar uma versão:
-1. Rodar de novo, em Actions, o workflow de um commit anterior que funcionava (*Re-run jobs*); ou
-2. No painel do Render, em **Events**, usar *Rollback* para um deploy anterior.
+1. No painel do Render, em **Events**, usar *Rollback* para voltar ao deploy anterior; ou
+2. Publicar de novo a imagem de um commit anterior que funcionava, chamando o deploy hook do ambiente com `imgURL=docker.io/bampamp/homa:<sha-anterior>`. É o mesmo comando que o pipeline usa, só que apontando para a tag antiga.
 
 ### Monitoramento
 
