@@ -229,7 +229,7 @@ Os dois serviços usam a **rede** `homa-net` (bridge) e o **volume** nomeado `ho
 
 ![Produção no Render](docs/prints/06-producao.png)
 
-O print do `docker compose` rodando localmente não entrou porque eu estava sem computador na reta final.
+O print do `docker compose` rodando localmente não entrou porque eu estava sem computador na reta final. O Compose com PostgreSQL foi testado durante o desenvolvimento, antes de o notebook pifar: os dois serviços subiram e o banco ficou saudável.
 
 ---
 
