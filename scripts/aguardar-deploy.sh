@@ -5,7 +5,7 @@ set -euo pipefail
 
 URL="${1:?informe a URL do ambiente}"
 SHA="${2:?informe o commit}"
-TENTATIVAS=60   # 60 x 15s = 15 minutos (o plano gratuito F1 da Azure demora para baixar a imagem e iniciar o Java)
+TENTATIVAS=60   # 60 x 15s = 15 minutos (o plano gratuito do Render demora para baixar a imagem e iniciar o Java)
 
 for i in $(seq 1 "$TENTATIVAS"); do
   INFO=$(curl -fsS --max-time 20 "$URL/api/info" || true)

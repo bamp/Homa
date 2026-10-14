@@ -15,6 +15,8 @@ O Homa reúne dicas e avaliações de quem mora na cidade, organizadas pelo mome
 
 **Integrante:** Alana de Menezes Pereira – RM 562562
 
+Resolvi fazer o projeto sozinha, aplicando o que aprendi nos desafios anteriores em uma ideia que eu queria desenvolver.
+
 > **Nota ao professor**
 >
 > No meio da realização deste trabalho, meu notebook pifou. Acabei não conseguindo validar a conta Azure de estudante, porque várias coisas que eu precisava estavam salvas no notebook. Então fiz o que dava para finalizar o deploy com o GitHub e com o Render, entre o tablet e o celular. O pipeline, a imagem Docker e a aprovação manual da produção são os mesmos que eu tinha planejado para a Azure; só mudou o lugar onde a aplicação roda.
